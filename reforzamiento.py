@@ -91,8 +91,32 @@ def siguiente_accion(fila_actual, columna_actual, explorar):
 # JUEGO - Este parte del código se modificará sesión a sesión
 
 # Escribe tu codigo aquí
+x = 5
+y = 10
 
+while True:
+    # Evento para que pygame reconozoa el teclado
+    pygame.event.pump()
+    keys = pygame.key.get_pressed()
 
+    #Acciones que se realiza cuando presione las teclas (derecha, izquierda, arriba y abajo)
+    if keys[K_RIGHT]:
+        y += 1
+    if keys[K_LEFT]:
+        y -= 1
+    if keys[K_UP]:
+        x -= 1
+    if keys[K_DOWN]:
+        x += 1
+
+    sleep(0.1)
+    ventana.fill((0,0,0))
+    #dibujar laberinto
+    dibujar_laberinto(x,y)
+    pygame.display.flip()
+    #CERRAR VENTANA
+    if keys[K_ESCAPE]:
+        break
 # -------------------------------------------------------------------------
 # Sesión 4 - Resultados del entrenamiento
 
