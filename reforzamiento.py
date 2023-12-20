@@ -80,7 +80,17 @@ def punto_inicial():
 # Esta función nos ayuda a elegir una acción facilmente y calcular la nueva posición utilizando solo un numero
 def punto_siguiente(fila_actual, columna_actual, indice_de_accion):
     # Escribe aquí tu código
-    pass
+    #Guardar los valores actuales
+    nueva_fila = fila_actual
+    nueva_columna = columna_actual
+
+    #Acciones: 0 = arriba, 1 = derecha, 2 = abajo, 3 = izquierda
+    acciones = ['arriba', 'derecha', 'abajo', 'izquierda']
+
+    if acciones[indice_de_accion] == 'arriba' and fila_actual > 0:
+        nueva_fila -= 1
+    elif acciones[indice_de_accion] == 'derecha' and columna_actual < columnas - 1:
+        nueva_columna += 1
 
 
 # -------------------------------------------------------------------------
