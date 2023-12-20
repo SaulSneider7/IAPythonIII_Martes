@@ -57,7 +57,7 @@ def dibujar_laberinto(jugador_x, jugador_y):
 # Si choca con un muro (pierde) o llega a la meta (gana) el juego termina
 def fin_del_juego(fila_actual, columna_actual):
     # Escribe aquí tu código
-    if recompensas(fila_actual, columna_actual) == -1:
+    if recompensas[fila_actual, columna_actual] == -1.:
         return False
     else:
         return True
@@ -74,7 +74,7 @@ def punto_inicial():
         if not fin_del_juego(fila_actual, columna_actual):
             break
     #Retorna el resultado obtenido
-    return  fila_actual, columna_actual
+    return fila_actual, columna_actual
 
 
 # Esta función nos ayuda a elegir una acción facilmente y calcular la nueva posición utilizando solo un numero
@@ -91,7 +91,12 @@ def punto_siguiente(fila_actual, columna_actual, indice_de_accion):
         nueva_fila -= 1
     elif acciones[indice_de_accion] == 'derecha' and columna_actual < columnas - 1:
         nueva_columna += 1
+    elif acciones[indice_de_accion] == 'abajo' and fila_actual < columnas - 1:
+        nueva_columna += 1
+    elif acciones[indice_de_accion] == 'izquierda' and columna_actual < columnas - 1:
+        nueva_columna += 1
 
+    return nueva_fila, nueva_columna
 
 # -------------------------------------------------------------------------
 # Sesión 3: Entrenamiento
@@ -112,31 +117,25 @@ def siguiente_accion(fila_actual, columna_actual, explorar):
 # JUEGO - Este parte del código se modificará sesión a sesión
 
 # Escribe tu codigo aquí
-x = 5
-y = 10
+x, y = punto_inicial()
 
 while True:
-    # Evento para que pygame reconozoa el teclado
-    pygame.event.pump()
-    keys = pygame.key.get_pressed()
+    accion = np.random.randint(4)
 
-    #Acciones que se realiza cuando presione las teclas (derecha, izquierda, arriba y abajo)
-    if keys[K_RIGHT]:
-        y += 1
-    if keys[K_LEFT]:
-        y -= 1
-    if keys[K_UP]:
-        x -= 1
-    if keys[K_DOWN]:
-        x += 1
+    x, y = punto_siguiente(x, y, accion)
 
-    sleep(0.1)
-    ventana.fill((0,0,0))
+    sleep(0.4)
+    ventana.fill((0, 0, 0))
+
     #dibujar laberinto
     dibujar_laberinto(x,y)
     pygame.display.flip()
-    #CERRAR VENTANA
-    if keys[K_ESCAPE]:
+    #Condicion del fin del juego
+    if fin_del_juego(x, y):
+        if recompensas[x, y] == 100:
+            print("Has ganado!")
+        else:
+            print("Has Perdido!")
         break
 # -------------------------------------------------------------------------
 # Sesión 4 - Resultados del entrenamiento
