@@ -57,13 +57,24 @@ def dibujar_laberinto(jugador_x, jugador_y):
 # Si choca con un muro (pierde) o llega a la meta (gana) el juego termina
 def fin_del_juego(fila_actual, columna_actual):
     # Escribe aquí tu código
-    pass
-
+    if recompensas(fila_actual, columna_actual) == -1:
+        return False
+    else:
+        return True
 
 # Inicia el juego desde una posición aleatoria
 def punto_inicial():
     # Escribe aquí tu código
-    pass
+    while True:
+        # Buscar un valor de fila y columna para empezar el juego
+        fila_actual = np.random.randint(filas)
+        columna_actual = np.random.randint(columnas)
+
+        #Si la posicion elegida no es un moro o la meta se puede iniciar el juego
+        if not fin_del_juego(fila_actual, columna_actual):
+            break
+    #Retorna el resultado obtenido
+    return  fila_actual, columna_actual
 
 
 # Esta función nos ayuda a elegir una acción facilmente y calcular la nueva posición utilizando solo un numero
