@@ -127,14 +127,28 @@ def siguiente_accion(fila_actual, columna_actual, explorar):
 # JUEGO - Este parte del código se modificará sesión a sesión
 
 # Escribe tu codigo aquí
+#Entrenamos nuestra IA haciendo que resulva el laberinto 1000 veces
 x, y = punto_inicial()
 
 while True:
-    accion = np.random.randint(4)
+    #Guardar posicion anterior
+    x_anterior = x
+    y_anterior = y
+
+    #accion al azar usando la funcion siguiente_accion
+    accion = siguiente_accion(x, y, exploracion)
 
     x, y = punto_siguiente(x, y, accion)
 
-    sleep(0.4)
+    valores_q_actual = valores_q[x_anterior, y_anterior, accion]
+
+    #calcular nuevo valor
+    recompensa = recompensas[x, y]
+    temporal_difference = recompensa + (descuento * np.max(valores_q[x, y, :])) - valores_q_actual
+    nuevo_valor_q = valores_q_actual + (aprendizaje * temporal_difference)
+
+    #Actualizar nuevo Valor
+    valores_q[x_anterior, y_anterior, accion] = nuevo_valor_q
     ventana.fill((0, 0, 0))
 
     #dibujar laberinto
