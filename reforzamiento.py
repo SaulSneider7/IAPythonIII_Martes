@@ -103,14 +103,24 @@ def punto_siguiente(fila_actual, columna_actual, indice_de_accion):
 
 # Tabla con los valores Q y parametros del entrenamiento
 # Escribe aquí tu codigo
+valores_q = np.zeros((filas, columnas, 4))
 
+#Parametros del entrenamiento
+exploracion = 0.1
+descuento = 0.9
+aprendizaje = 0.9
 
 # Es una función que nos ayuda a explorar nuevas posibilidades o a utilizar el conocimiento que ya tenemos
 # para ello utiliza el parametro explorar, el cual es un porcentaje que nos ayuda a decidir que tantas veces vamos
 # a utilizar valores al azar y cuantas veces vamos a usar las mejores respuestas que tenemos
 def siguiente_accion(fila_actual, columna_actual, explorar):
     # Escribe aquí tu código
-    pass
+    if np.random.random() > explorar:
+        # Se una la funcion argmax para descubrir el mejor camino
+        return np.argmax(valores_q[fila_actual, columna_actual])
+    else:
+        #Retorne un numero aleatorio
+        return np.random.randint(4)
 
 
 # -------------------------------------------------------------------------
